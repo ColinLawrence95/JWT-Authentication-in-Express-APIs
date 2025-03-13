@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const logger = require('morgan');
 const testJwtRouter = require('./controllers/test-jwt.js');
+const authRouter = require("./controllers/auth.js");
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -16,7 +17,9 @@ mongoose.connection.on('connected', () => {
 app.use(cors());
 app.use(express.json());
 app.use(logger('dev'));
+app.use("/auth", authRouter);
 app.use('/test-jwt', testJwtRouter);
+
 
 // Routes go here
 
